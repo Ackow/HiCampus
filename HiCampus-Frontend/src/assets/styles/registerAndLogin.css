@@ -1,0 +1,234 @@
+/* 导入字体 */
+/* 你可以使用 Google Fonts 来获取这些字体，这里只是一个示例 */
+/* font-family: 'Roboto', sans-serif; (用于英文和数字，如 HiCampus Logo) */
+/* font-family: 'Noto Sans SC', sans-serif; (用于中文) */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans SC', sans-serif; /* 默认中文字体 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f2f5; /* 背景颜色 */
+    width: 100%; /* 确保宽度占满 */
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    max-width: 100%; /* 修改为100%以占满浏览器宽度 */
+    height: 100vh; /* 使容器占满视口高度 */
+    min-height: 600px; /* 最小高度，防止内容过少时塌陷 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* 简单阴影 */
+    border-radius: 0; /* 去除圆角 */
+    overflow: hidden; /* 防止内容溢出圆角 */
+    margin: 0;
+    padding: 0;
+}
+
+/* 左侧面板 */
+.left-panel {
+    flex: 1; /* 占据一半宽度 */
+    background-color: #FFFBEB; /* 浅黄色背景 */
+    display: flex;
+    flex-direction: column;
+    padding: 60px 80px; /* 内边距 */
+    box-sizing: border-box; /* 包含padding在内的宽度计算 */
+    justify-content: flex-start; /* 内容顶部对齐 */
+    align-items: flex-start; /* 内容左侧对齐 */
+}
+
+.logo {
+    font-family: 'Roboto', sans-serif; /* 英文Logo字体 */
+    font-weight: 700;
+    font-size: 36px;
+    color: #4A90E2; /* 蓝色 */
+    margin-bottom: 120px; /* 与下方slogan的间距 */
+}
+
+.slogan-section {
+    margin-top: 120px; /* 将slogan推到底部 */
+}
+
+.slogan-hi {
+    font-size: 48px;
+    font-weight: 700;
+    color: #4A90E2; /* 蓝色 */
+    margin: 0;
+    line-height: 1.2;
+}
+
+.slogan-text {
+    font-size: 48px;
+    font-weight: 700;
+    color: #4A90E2; /* 蓝色 */
+    margin: 0;
+    line-height: 1.2;
+}
+
+
+/* 右侧面板 */
+.right-panel {
+    flex: 1; /* 占据一半宽度 */
+    background-color: #FFFFFF; /* 白色背景 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* 内容上下分散对齐 */
+    align-items: center; /* 内容水平居中 */
+    padding: 60px 0; /* 顶部和底部留白 */
+    box-sizing: border-box;
+    position: relative;
+}
+
+.action-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    top: 45%;
+    left: 0;
+    right: 0;
+    transform: translateY(-55%);
+
+}
+
+.start-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 30px;
+}
+
+.buttons-group {
+    display: flex;
+    gap: 20px; /* 按钮之间的间距 */
+    margin-bottom: 25px;
+}
+
+.btn {
+    padding: 15px 40px;
+    border-radius: 30px; /* 圆角按钮 */
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.primary-btn {
+    background-color: #7BB4F4; /* 浅蓝色 */
+    color: #FFFFFF;
+}
+
+.primary-btn:hover {
+    background-color: #639ceb;
+    transform: translateY(-2px);
+}
+
+.secondary-btn {
+    background-color: #E6F2FE; /* 更浅的蓝色 */
+    color: #4A90E2; /* 蓝色字体 */
+}
+
+.secondary-btn:hover {
+    background-color: #d0e7fb;
+    transform: translateY(-2px);
+}
+
+.trial-text {
+    font-size: 16px;
+    color: #999999;
+    cursor: pointer;
+    margin-top: 10px; /* 与按钮的间距 */
+}
+
+.trial-text:hover {
+    color: #4A90E2;
+}
+
+.footer-info {
+    text-align: center;
+    font-size: 14px;
+    color: #AAAAAA;
+    margin-top: auto; /* 将 footer 推到底部 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-logo {
+    font-family: 'Roboto', sans-serif; /* 英文Logo字体 */
+    font-weight: 700;
+    font-size: 20px;
+    color: #4A90E2; /* 蓝色 */
+    margin-bottom: 5px;
+}
+
+.terms-privacy {
+    margin: 0;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* 小屏幕下堆叠显示 */
+        height: auto;
+        min-height: 100vh; /* 确保移动端至少占满一屏 */
+        border-radius: 0; /* 移动端可以取消圆角 */
+        box-shadow: none; /* 移动端可以取消阴影 */
+    }
+
+    .left-panel {
+        padding: 40px 30px;
+        height: 30vh; /* 左侧面板在小屏幕下占据固定高度 */
+        min-height: 200px;
+        align-items: center; /* 居中对齐 */
+        text-align: center;
+        justify-content: center;
+        margin-bottom: 20px; /* 增加与右侧的间距 */
+    }
+
+    .logo {
+        font-size: 30px;
+        margin-bottom: 20px;
+    }
+
+    .slogan-hi, .slogan-text {
+        font-size: 32px;
+    }
+
+    .right-panel {
+        padding: 40px 30px;
+        justify-content: flex-start; /* 移动端右侧内容从顶部开始排列 */
+        flex-grow: 1; /* 占据剩余空间 */
+    }
+
+    .action-section {
+        padding-top: 0; /* 移动端顶部间距可以减少 */
+    }
+
+    .start-text {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .buttons-group {
+        flex-direction: column; /* 按钮垂直堆叠 */
+        gap: 15px;
+        width: 100%; /* 按钮宽度占满父容器 */
+        max-width: 250px; /* 限制按钮最大宽度 */
+    }
+
+    .btn {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+
+    .footer-info {
+        margin-top: 40px; /* 移动端底部信息距离上部内容更远 */
+    }
+}
