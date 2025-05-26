@@ -42,10 +42,68 @@
     </header>
 
     <main>
-        <h1>欢迎来到 HiCampus 嗨校园！</h1>
-        <p>点击用户头像左侧的搜索图标，体验动画效果。</p>
+        <!-- 侧边栏 -->
+        <div class="sidebar" id="sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="#">首页</a></li>
+                <li><a href="#">发布</a></li>
+                <li><a href="#">消息</a></li>
+            </ul>
+        </div>
+
+        <!-- 遮罩层 -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <!-- 内容展示区域 -->
+        <div class="content-container">
+            <div class="content-grid">
+                <!-- 内容卡片示例 -->
+                <div class="content-card">
+                    <div class="card-image">
+                        <img src="../src/assets/images/Test-Avatar.png" alt="内容图片">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">校园生活分享</h3>
+                        <p class="card-description">分享你的校园生活点滴，记录美好时光...</p>
+                        <div class="card-footer">
+                            <div class="user-info">
+                                <img src="../src/assets/images/Test-Avatar.png" alt="用户头像" class="user-avatar-small">
+                                <span class="username">用户名</span>
+                            </div>
+                            <div class="interaction-info">
+                                <span class="likes">❤️ 128</span>
+                                <span class="comments">💬 32</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 更多内容卡片 -->
+                <div class="content-card">
+                    <div class="card-image">
+                        <img src="../src/assets/images/Test-Avatar.png" alt="内容图片">
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title">学习经验分享</h3>
+                        <p class="card-description">分享你的学习方法和经验，帮助他人进步...</p>
+                        <div class="card-footer">
+                            <div class="user-info">
+                                <img src="../src/assets/images/Test-Avatar.png" alt="用户头像" class="user-avatar-small">
+                                <span class="username">用户名</span>
+                            </div>
+                            <div class="interaction-info">
+                                <span class="likes">❤️ 256</span>
+                                <span class="comments">💬 48</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 可以继续添加更多卡片 -->
+            </div>
+        </div>
     </main>
 
-    <script src="../src/assets/components/search_button.js"></script>
+    <script type="module" src="../src/assets/components/main.js"></script>
 </body>
 </html>
