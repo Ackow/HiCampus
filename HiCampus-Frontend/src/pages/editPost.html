@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HiCampus - 图文编辑</title>
+    <link rel="stylesheet" href="../styles/editPost.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="site-header" style="margin: 0;">
+        <div class="container header-content">
+            <div class="logo-container">
+                <a href="index.html">
+                    <img src="../../public/assets/images/logo.png" alt="HiCampus Logo" class="logo-img">
+                </a>
+                <span class="logo-text">HiCampus</span>
+            </div>
+
+            <div class="search-area">
+                <div class="search-input-wrapper">
+                    <input type="text" class="search-input" placeholder="输入你感兴趣的内容...">
+                </div>
+            </div>
+
+            <div class="header-right-actions">
+                <button class="search-trigger-button" id="searchTriggerButton" aria-label="打开搜索框">
+                    <img src="assets/images/搜索.svg" alt="搜索图标" class="search-trigger-icon">
+                </button>
+                <!-- 未登录状态 -->
+                <div class="auth-buttons" id="authButtons">
+                    <button class="auth-button">登录/注册</button>
+                </div>
+                <!-- 已登录状态 -->
+                <div class="user-profile-container" id="userProfile" style="display: none;">
+                    <div class="user-profile-wrapper">
+                        <a href="/profile" class="user-profile-link">
+                            <img src="http://localhost:3000/uploads/avatars/default-avatar.png" alt="用户头像" class="user-avatar">
+                            <span class="user-nickname">加载中...</span>
+                        </a>
+                        <div class="user-dropdown-menu">
+                            <a href="/profile" class="dropdown-item">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                </svg>
+                                <span>个人信息</span>
+                            </a>
+                            <button class="dropdown-item" id="logoutButton">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                    <polyline points="16 17 21 12 16 7"/>
+                                    <line x1="21" y1="12" x2="9" y2="12"/>
+                                </svg>
+                                退出登录
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div class="card">
+            <h2 class="card-title">图文编辑 <span class="image-count">(1/9)</span></h2>
+            <div class="image-upload-section">
+                <div class="upload-box">
+                    <i class="fas fa-plus upload-icon"></i>
+                    <span class="upload-text">添加</span>
+                </div>
+                <div class="uploaded-image-placeholder">
+                    <img src="https://via.placeholder.com/80x80" alt="Uploaded Image" class="uploaded-image">
+                </div>
+            </div>
+
+            <input type="text" class="input-title" placeholder="添加标题">
+
+            <textarea class="textarea-body" placeholder="添加正文"></textarea>
+
+            <div class="options-row">
+                <div class="option-tag">
+                    <i class="fas fa-hashtag option-icon"></i>
+                    <span>话题</span>
+                </div>
+                <div class="option-tag">
+                    <i class="fas fa-at option-icon"></i>
+                    <span>用户</span>
+                </div>
+                <div class="option-tag">
+                    <i class="fas fa-map-marker-alt option-icon"></i>
+                    <span>地点</span>
+                </div>
+            </div>
+
+            <div class="settings-row">
+                <div class="setting-item">
+                    <i class="fas fa-lock setting-icon"></i>
+                    <span>可见范围</span>
+                </div>
+                <div class="setting-item">
+                    <i class="fas fa-cog setting-icon"></i>
+                    <span>高级设置</span>
+                </div>
+            </div>
+
+            <div class="publish-button-container">
+                <button class="publish-btn">发布</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
