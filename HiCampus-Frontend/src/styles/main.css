@@ -8,9 +8,9 @@
     right: 0;
     z-index: 1001;
     height: 80px;
-    max-width: 1600px;
+    max-width: 2000px;
     min-width: 800px;
-    margin: 0 20px;
+    margin: 0 auto;
     padding: 0 2rem;
 }
 
@@ -19,7 +19,7 @@
     justify-content: space-between;
     align-items: center;
     height: 100%;
-    max-width: 1600px;
+    max-width: 2000px;
     min-width: 800px;
     margin: 0 20px;
     padding: 0 1rem;
@@ -152,9 +152,7 @@
 /* 侧边栏样式 */
 .sidebar {
     position: fixed;
-    top: 80px; /* 从页首下方开始 */
-    left: 0;
-    width: 200px;
+    width: 250px;
     height: calc(100vh - 80px); /* 减去页首高度 */
     background-color: #ffffff;
     z-index: 1000;
@@ -205,22 +203,17 @@
 
 /* 主内容区域样式 */
 main {
-    margin-top: 80px;
-    margin-left: 200px; /* 为侧边栏留出空间 */
+    display: flex;
+    margin: 0 auto;
+    margin-top: 5rem;
     padding: 20px;
-    position: relative;
-    min-height: calc(100vh - 80px);
+    max-width: 2000px;
 }
-
-/* 移除 main.sidebar-active 的 margin-left 过渡效果 */
-main.sidebar-active {
-    margin-left: 0;
-}
-
 /* 内容展示区域样式 */
 .content-container {
-    max-width: 1600px;
-    margin: 0 20px;
+    max-width: 1750px;
+    /* margin: 0 20px; */
+    margin-left: 300px;
     padding: 20px;
     width: 100%;
     box-sizing: border-box;
@@ -231,7 +224,7 @@ main.sidebar-active {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
     padding: 20px 0;
-    max-width: 1600px;
+    max-width: 2000px;
     margin: 0 auto;
 }
 
@@ -328,7 +321,7 @@ main.sidebar-active {
 }
 
 /* 响应式调整 */
-@media (max-width: 1600px) {
+@media (max-width: 2000px) {
     .site-header,
     .header-content,
     .content-container,
@@ -472,7 +465,7 @@ main.sidebar-active {
 }
 
 .profile-container {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 40px auto 0 auto;
     padding: 20px;
 }
@@ -581,6 +574,7 @@ main.sidebar-active {
 .profile-tabs {
     display: flex;
     justify-content: center;
+    margin-left: -270px;
     gap: 40px;
     margin-bottom: 32px;
 }
@@ -659,8 +653,8 @@ main.sidebar-active {
 }
 
 .edit-profile-container {
-    max-width: 800px;
-    margin: 40px auto;
+    max-width: 1200px;
+    margin: 40px 50px;
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
@@ -701,7 +695,9 @@ main.sidebar-active {
 
 .edit-profile-content {
     display: flex;
-    gap: 48px;
+    gap: 96px;
+    margin: 0 auto;
+    max-width: 800px;
 }
 
 .avatar-section {
