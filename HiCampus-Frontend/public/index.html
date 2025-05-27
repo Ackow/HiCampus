@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../src/assets/styles/main.css">
+    <link rel="stylesheet" href="../src/styles/main.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <title>HiCampus - 嗨校园</title>
 </head>
@@ -13,11 +13,11 @@
         <div class="container header-content">
             <div class="logo-container">
                 <a href="index.html">
-                    <img src="../src/assets/images/logo.png" alt="HiCampus Logo" class="logo-img">
+                    <img src="assets/images/logo.png" alt="HiCampus Logo" class="logo-img">
                 </a>
                 <span class="logo-text">HiCampus</span>
                 <button class="sidebar-trigger-button" id="sidebarTriggerButton" aria-label="打开侧边栏">
-                    <img src="../src/assets/images/左侧边栏.svg" alt="左侧边栏" class="sidebar-trigger-icon">
+                    <img src="assets/images/左侧边栏.svg" alt="左侧边栏" class="sidebar-trigger-icon">
                 </button>
             </div>
 
@@ -29,13 +29,37 @@
 
             <div class="header-right-actions">
                 <button class="search-trigger-button" id="searchTriggerButton" aria-label="打开搜索框">
-                    <img src="../src/assets/images/搜索.svg" alt="搜索图标" class="search-trigger-icon">
+                    <img src="assets/images/搜索.svg" alt="搜索图标" class="search-trigger-icon">
                 </button>
-                <div class="user-profile-container">
-                    <a href="/profile" class="user-profile-link">
-                        <img src="../src/assets/images/Test-Avatar.png" alt="用户头像" class="user-avatar">
-                        <span class="user-nickname">Ackow</span>
-                    </a>
+                <!-- 未登录状态 -->
+                <div class="auth-buttons" id="authButtons">
+                    <button class="auth-button">登录/注册</button>
+                </div>
+                <!-- 已登录状态 -->
+                <div class="user-profile-container" id="userProfile" style="display: none;">
+                    <div class="user-profile-wrapper">
+                        <a href="/profile" class="user-profile-link">
+                            <img src="http://localhost:3000/uploads/avatars/default-avatar.png" alt="用户头像" class="user-avatar">
+                            <span class="user-nickname">加载中...</span>
+                        </a>
+                        <div class="user-dropdown-menu">
+                            <a href="/profile" class="dropdown-item">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                </svg>
+                                <span>个人信息</span>
+                            </a>
+                            <button class="dropdown-item" id="logoutButton">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                    <polyline points="16 17 21 12 16 7"/>
+                                    <line x1="21" y1="12" x2="9" y2="12"/>
+                                </svg>
+                                退出登录
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -45,7 +69,7 @@
         <!-- 侧边栏 -->
         <div class="sidebar" id="sidebar">
             <ul class="sidebar-menu">
-                <li><a href="#">首页</a></li>
+                <li><a href="">首页</a></li>
                 <li><a href="#">发布</a></li>
                 <li><a href="#">消息</a></li>
             </ul>
@@ -60,14 +84,14 @@
                 <!-- 内容卡片示例 -->
                 <div class="content-card">
                     <div class="card-image">
-                        <img src="../src/assets/images/Test-Avatar.png" alt="内容图片">
+                        <img alt="内容图片">
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">校园生活分享</h3>
                         <p class="card-description">分享你的校园生活点滴，记录美好时光...</p>
                         <div class="card-footer">
                             <div class="user-info">
-                                <img src="../src/assets/images/Test-Avatar.png" alt="用户头像" class="user-avatar-small">
+                                <img alt="用户头像" class="user-avatar-small">
                                 <span class="username">用户名</span>
                             </div>
                             <div class="interaction-info">
@@ -81,14 +105,14 @@
                 <!-- 更多内容卡片 -->
                 <div class="content-card">
                     <div class="card-image">
-                        <img src="../src/assets/images/Test-Avatar.png" alt="内容图片">
+                        <img alt="内容图片">
                     </div>
                     <div class="card-content">
                         <h3 class="card-title">学习经验分享</h3>
-                        <p class="card-description">分享你的学习方法和经验，帮助他人进步...</p>
+                        <p class="card-description">分享你的学习方法和经验，帮助他人...</p>
                         <div class="card-footer">
                             <div class="user-info">
-                                <img src="../src/assets/images/Test-Avatar.png" alt="用户头像" class="user-avatar-small">
+                                <img alt="用户头像" class="user-avatar-small">
                                 <span class="username">用户名</span>
                             </div>
                             <div class="interaction-info">
@@ -104,6 +128,6 @@
         </div>
     </main>
 
-    <script type="module" src="../src/assets/components/main.js"></script>
+    <script type="module" src="assets/js/main.js"></script>
 </body>
 </html>
