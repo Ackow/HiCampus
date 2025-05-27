@@ -4,7 +4,7 @@ class ComponentManager {
         this.components = new Map();
         this.pageComponents = {
             'registerAndLogin': ['auth'],
-            'index': ['auth', 'search', 'sidebar']
+            'index': ['auth', 'search', 'profile','editProfile'],
         };
     }
 
@@ -48,7 +48,8 @@ class ComponentManager {
         const path = window.location.pathname;
         if (path.includes('registerAndLogin.html')) {
             return 'registerAndLogin';
-        } else if (path.includes('index.html') || path === '/' || path === '/index.html') {
+        }
+        else if (path.includes('index.html') || path === '/' || path === '/index.html') {
             return 'index';
         }
         return 'index'; // 默认返回首页
@@ -59,16 +60,36 @@ class ComponentManager {
 const componentManager = new ComponentManager();
 
 // 导入组件
-import SidebarComponent from './sidebar.js';
 import SearchComponent from './search.js';
 import AuthComponent from './auth.js';
+import ProfileComponent from './profile.js';
+import EditProfileComponent from './edit-profile.js';
 
 // 注册组件
-componentManager.register('sidebar', SidebarComponent);
 componentManager.register('search', SearchComponent);
 componentManager.register('auth', AuthComponent);
+componentManager.register('profile', ProfileComponent);
+componentManager.register('editProfile', EditProfileComponent);
 
 // 当 DOM 加载完成后初始化所有组件
 document.addEventListener('DOMContentLoaded', () => {
     componentManager.initialize();
-}); 
+    checkAuthStatus();
+});
+
+// 检查用户登录状态
+function checkAuthStatus() {
+    const token = localStorage.getItem('token');
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    
+    if (token && userInfo) {
+        // 更新用户信息显示
+        const userAvatar = document.querySelector('.user-avatar');
+        const userNickname = document.querySelector('.user-nickname');
+        
+        if (userAvatar && userNickname) {
+            userAvatar.src = userInfo.avatar || 'http://localhost:3000/uploads/avatars/default-avatar.png';
+            userNickname.textContent = userInfo.nickname;
+        }
+    }
+} 

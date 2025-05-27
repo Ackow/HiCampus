@@ -16,9 +16,6 @@
                     <img src="assets/images/logo.png" alt="HiCampus Logo" class="logo-img">
                 </a>
                 <span class="logo-text">HiCampus</span>
-                <button class="sidebar-trigger-button" id="sidebarTriggerButton" aria-label="打开侧边栏">
-                    <img src="assets/images/左侧边栏.svg" alt="左侧边栏" class="sidebar-trigger-icon">
-                </button>
             </div>
 
             <div class="search-area">
@@ -38,12 +35,12 @@
                 <!-- 已登录状态 -->
                 <div class="user-profile-container" id="userProfile" style="display: none;">
                     <div class="user-profile-wrapper">
-                        <a href="/profile" class="user-profile-link">
-                            <img src="http://localhost:3000/uploads/avatars/default-avatar.png" alt="用户头像" class="user-avatar">
+                        <a class="user-profile-link">
+                            <img alt="用户头像" class="user-avatar">
                             <span class="user-nickname">加载中...</span>
                         </a>
                         <div class="user-dropdown-menu">
-                            <a href="/profile" class="dropdown-item">
+                            <a href="#profile" class="dropdown-item">
                                 <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                                     <circle cx="12" cy="7" r="4"/>
@@ -68,11 +65,11 @@
     <main>
         <!-- 侧边栏 -->
         <div class="sidebar" id="sidebar">
-            <ul class="sidebar-menu">
-                <li><a href="">首页</a></li>
-                <li><a href="#">发布</a></li>
-                <li><a href="#">消息</a></li>
-            </ul>
+            <div class="sidebar-menu">
+                <a href="#home" class="select">首页</a>
+                <a href="../../src/pages/publish.html">发布</a>
+                <a href="#message">消息</a>
+            </div>
         </div>
 
         <!-- 遮罩层 -->
@@ -80,54 +77,11 @@
 
         <!-- 内容展示区域 -->
         <div class="content-container">
-            <div class="content-grid">
-                <!-- 内容卡片示例 -->
-                <div class="content-card">
-                    <div class="card-image">
-                        <img alt="内容图片">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">校园生活分享</h3>
-                        <p class="card-description">分享你的校园生活点滴，记录美好时光...</p>
-                        <div class="card-footer">
-                            <div class="user-info">
-                                <img alt="用户头像" class="user-avatar-small">
-                                <span class="username">用户名</span>
-                            </div>
-                            <div class="interaction-info">
-                                <span class="likes">❤️ 128</span>
-                                <span class="comments">💬 32</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 更多内容卡片 -->
-                <div class="content-card">
-                    <div class="card-image">
-                        <img alt="内容图片">
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">学习经验分享</h3>
-                        <p class="card-description">分享你的学习方法和经验，帮助他人...</p>
-                        <div class="card-footer">
-                            <div class="user-info">
-                                <img alt="用户头像" class="user-avatar-small">
-                                <span class="username">用户名</span>
-                            </div>
-                            <div class="interaction-info">
-                                <span class="likes">❤️ 256</span>
-                                <span class="comments">💬 48</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 可以继续添加更多卡片 -->
-            </div>
+            <!-- 内容将通过 JavaScript 动态加载 -->
         </div>
     </main>
 
     <script type="module" src="assets/js/main.js"></script>
+    <script type="module" src="assets/js/router.js"></script>
 </body>
 </html>

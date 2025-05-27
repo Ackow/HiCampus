@@ -6,7 +6,7 @@
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1001; /* 确保页首在最上层 */
+    z-index: 1001;
     height: 80px;
     max-width: 1600px;
     min-width: 800px;
@@ -128,7 +128,7 @@
     gap: 0.5rem;
     text-decoration: none;
     color: #333;
-    border-radius: 50px;
+    border-radius: 8px;
     padding: 0.5rem 1rem;
 }
 
@@ -149,45 +149,17 @@
     font-weight: bold;  
 }
 
-/* 侧边栏按钮样式 */
-.sidebar-trigger-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.8rem;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.sidebar-trigger-icon:hover {
-    opacity: 1;
-}
-
-.sidebar-trigger-icon {
-    width: 35px;
-    height: 35px;
-    opacity: 0.5;
-}
-
 /* 侧边栏样式 */
 .sidebar {
     position: fixed;
     top: 80px; /* 从页首下方开始 */
-    left: -400px;
-    width: 300px;
+    left: 0;
+    width: 200px;
     height: calc(100vh - 80px); /* 减去页首高度 */
     background-color: #ffffff;
-    /* box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); */
-    transition: left 0.3s ease-in-out;
     z-index: 1000;
     padding: 20px;
-    overflow-y: auto; /* 内容过多时可滚动 */
-}
-
-.sidebar.active {
-    left: 0;
+    overflow-y: auto;
 }
 
 .sidebar-header {
@@ -210,19 +182,14 @@
     margin: 0;
 }
 
-.sidebar-menu li {
-    padding: 0 30px;
-    margin-bottom: 15px;
-}
-
 .sidebar-menu a {
+    margin-bottom: 15px;
     text-decoration: none;
     color: #333;
     font-size: 1.5rem;
     font-weight: bold;
     display: block;
     padding: 10px;
-    border-radius: 5px;
     border-radius: 50px;
     transition: background-color 0.2s;
     text-align: center;
@@ -232,28 +199,17 @@
     background-color: #f5f5f5;
 }
 
-/* 遮罩层样式 */
-.sidebar-overlay {
-    position: fixed;
-    top: 80px; /* 从页首下方开始 */
-    left: 0;
-    width: 100%;
-    height: calc(100vh - 80px); /* 减去页首高度 */
-    /* background-color: rgba(85, 85, 85, 0.5); */
-    display: none;
-    z-index: 999;
-}
-
-.sidebar-overlay.active {
-    display: block;
+.sidebar-menu a.select {
+    background-color: #f5f5f5;
 }
 
 /* 主内容区域样式 */
 main {
-    margin-top: 80px; /* 为页首留出空间 */
+    margin-top: 80px;
+    margin-left: 200px; /* 为侧边栏留出空间 */
     padding: 20px;
-    position: relative; /* 添加相对定位 */
-    min-height: calc(100vh - 80px); /* 减去页首高度 */
+    position: relative;
+    min-height: calc(100vh - 80px);
 }
 
 /* 移除 main.sidebar-active 的 margin-left 过渡效果 */
@@ -384,6 +340,19 @@ main.sidebar-active {
 }
 
 @media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    main {
+        margin-left: 0;
+    }
+
     .content-grid {
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
         gap: 15px;
@@ -449,12 +418,12 @@ main.sidebar-active {
 .user-dropdown-menu {
     position: absolute;
     top: 100%;
-    right: 0;
+    /* right: 0; */
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 8px 5px;
-    width: 160px;
+    width: 150px;
     display: none;
     /* display: block; */
     z-index: 1000;
@@ -501,3 +470,398 @@ main.sidebar-active {
 .dropdown-item:hover svg {
     color: #4a90e2;
 }
+
+.profile-container {
+    max-width: 900px;
+    margin: 40px auto 0 auto;
+    padding: 20px;
+}
+
+.profile-header {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 32px;
+    text-align: left;
+    align-items: flex-start;  /* 改为顶部对齐 */
+    justify-content: center;  /* 水平居中 */
+    width: 100%;  /* 确保 header 占满容器宽度 */
+}
+
+.profile-left {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    margin: 0 25px;
+}
+
+.avatar-container {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-edit-avatar {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.profile-right {
+    flex: 1;
+    min-width: 0;  /* 防止内容溢出 */
+    max-width: 600px;  /* 设置最大宽度 */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;  /* 改为顶部对齐 */
+    margin: 0 25px;
+}
+
+.profile-nickname-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.profile-nickname-container a{
+    opacity: .7;
+}
+
+.profile-nickname-container a:hover{
+    opacity: 1;
+}
+
+.edit-nickname-btn:hover {
+    transform: scale(1.1);
+}
+
+.edit-icon {
+    width: 20px;
+    height: 20px;
+    opacity: 0.6;
+}
+
+.edit-nickname-btn:hover .edit-icon {
+    opacity: 1;
+}
+
+.profile-nickname {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    white-space: nowrap;  /* 防止昵称换行 */
+    overflow: hidden;  /* 超出部分隐藏 */
+    text-overflow: ellipsis;  /* 显示省略号 */
+}
+
+.profile-meta {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.profile-tags {
+    display: inline-block;
+    background: #f5f5f5;
+    color: #666;
+    border-radius: 16px;
+    padding: 6px 5px;
+    font-size: 0.8rem;
+    margin: 10px 0;
+    text-align: center;
+    width: 45px;
+}
+
+.profile-gender{
+    width: 14px;
+    height: 14px;
+}
+
+.profile-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 32px;
+}
+
+.profile-tab {
+    font-size: 1.1rem;
+    color: #888;
+    cursor: pointer;
+    padding-bottom: 6px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.profile-tab.active {
+    color: #222;
+    border-bottom: 2.5px solid #222;
+    font-weight: bold;
+}
+
+.note-list {
+    display: flex;
+    flex-wrap: wrap;         /* 允许换行 */
+    justify-content: flex-start;
+    gap: 32px;               /* 卡片间距 */
+}
+
+.note-card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    width: 260px;
+    margin-bottom: 32px;     /* 换行后下方间距 */
+    padding-bottom: 16px;
+    overflow: hidden;
+    text-align: left;
+}
+
+.note-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 18px 18px 0 0;
+}
+.note-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 14px 16px 6px 16px;
+}
+.note-meta {
+    display: flex;
+    align-items: center;
+    margin: 0 16px 0 16px;
+    color: #888;
+    font-size: 0.95rem;
+}
+.note-meta img {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+.note-like {
+    float: right;
+    color: #e25555;
+    font-size: 1rem;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+.note-like i {
+    margin-right: 3px;
+}
+@media (max-width: 700px) {
+    .note-list { flex-direction: column; gap: 18px; align-items: center;}
+    .profile-container { margin-top: 16px;}
+}
+
+.edit-profile-container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    padding: 32px;
+}
+
+.edit-profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.edit-profile-header h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.3s;
+    text-decoration: none;
+}
+
+.back-btn:hover {
+    background: #f5f5f5;
+    color: #333;
+}
+
+.edit-profile-content {
+    display: flex;
+    gap: 48px;
+}
+
+.avatar-section {
+    flex-shrink: 0;
+    text-align: center;
+}
+
+.avatar-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 12px;
+}
+
+.profile-avatar {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.edit-avatar-btn {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+.edit-avatar-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.edit-icon {
+    width: 20px;
+    height: 20px;
+    opacity: 0.6;
+}
+
+.edit-avatar-btn:hover .edit-icon {
+    opacity: 1;
+}
+
+.avatar-tip {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.form-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 0.95rem;
+    color: #333;
+    font-weight: 500;
+}
+
+.form-input {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.form-input:focus {
+    border-color: #4a90e2;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+}
+
+.gender-options {
+    display: flex;
+    gap: 24px;
+}
+
+.gender-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.gender-option input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.cancel-btn,
+.save-btn {
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.cancel-btn {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    color: #666;
+}
+
+.save-btn {
+    background: #4a90e2;
+    border: none;
+    color: #fff;
+}
+
+.cancel-btn:hover {
+    background: #eee;
+}
+
+.save-btn:hover {
+    background: #357abd;
+}
+
+@media (max-width: 768px) {
+    .edit-profile-content {
+        flex-direction: column;
+        align-items: center;
+        gap: 32px;
+    }
+
+    .form-section {
+        width: 100%;
+    }
+
+    .edit-profile-container {
+        margin: 20px;
+        padding: 20px;
+    }
+} 

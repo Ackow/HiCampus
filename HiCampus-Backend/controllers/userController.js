@@ -23,7 +23,9 @@ exports.register = async (req, res) => {
             username,
             password: hashedPassword,
             nickname,
-            avatar: 'default-avatar.png'
+            avatar: 'default-avatar.png',
+            age: 0,
+            gender: 'male'
         });
 
         await user.save();
@@ -40,9 +42,12 @@ exports.register = async (req, res) => {
             token,
             user: {
                 id: user._id,
+                uid: user.uid,
                 username: user.username,
                 nickname: user.nickname,
-                avatar: `http://localhost:3000/uploads/avatars/${user.avatar}`
+                avatar: `http://localhost:3000/uploads/avatars/${user.avatar}`,
+                age: user.age,
+                gender: user.gender
             }
         });
     } catch (error) {
@@ -80,9 +85,12 @@ exports.login = async (req, res) => {
             token,
             user: {
                 id: user._id,
+                uid: user.uid,
                 username: user.username,
                 nickname: user.nickname,
-                avatar: `http://localhost:3000/uploads/avatars/${user.avatar}`
+                avatar: `http://localhost:3000/uploads/avatars/${user.avatar}`,
+                age: user.age,
+                gender: user.gender
             }
         });
     } catch (error) {
@@ -98,7 +106,16 @@ exports.getUserInfo = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: '用户不存在' });
         }
-        res.json(user);
+        res.json({
+            id: user._id,
+            uid: user.uid,
+            username: user.username,
+            nickname: user.nickname,
+            avatar: `http://localhost:3000/uploads/avatars/${user.avatar}`,
+            age: user.age,
+            gender: user.gender,
+            createdAt: user.createdAt
+        });
     } catch (error) {
         console.error('获取用户信息错误:', error);
         res.status(500).json({ message: '服务器错误' });

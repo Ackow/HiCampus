@@ -55,7 +55,7 @@ const AuthComponent = {
                 this.elements.userProfile.style.display = 'flex';
                 
                 // 获取用户信息并更新显示
-                const userInfo = JSON.parse(localStorage.getItem('user'));
+                const userInfo = JSON.parse(localStorage.getItem('userInfo'));
                 if (userInfo) {
                     const userAvatar = this.elements.userProfile.querySelector('.user-avatar');
                     const userNickname = this.elements.userProfile.querySelector('.user-nickname');
@@ -97,9 +97,9 @@ const AuthComponent = {
 
             if (response.ok) {
                 // 更新本地存储中的用户信息
-                const userInfo = JSON.parse(localStorage.getItem('user'));
+                const userInfo = JSON.parse(localStorage.getItem('userInfo'));
                 userInfo.avatar = result.avatar;
-                localStorage.setItem('user', JSON.stringify(userInfo));
+                localStorage.setItem('userInfo', JSON.stringify(userInfo));
 
                 // 更新UI显示
                 this.updateUI(true);
@@ -183,7 +183,7 @@ const AuthComponent = {
                     if (response.ok) {
                         // 保存token和用户信息
                         localStorage.setItem('token', result.token);
-                        localStorage.setItem('user', JSON.stringify(result.user));
+                        localStorage.setItem('userInfo', JSON.stringify(result.user));
                         localStorage.setItem('isLoggedIn', 'true');
                         
                         // 更新UI
@@ -267,7 +267,7 @@ const AuthComponent = {
                 // 清除本地存储的登录状态
                 localStorage.removeItem('isLoggedIn');
                 localStorage.removeItem('token');
-                localStorage.removeItem('user');
+                localStorage.removeItem('userInfo');
                 
                 // 更新UI显示
                 this.updateUI(false);
@@ -277,41 +277,10 @@ const AuthComponent = {
             });
         }
 
-        // 头像点击事件（用于上传新头像）
+        // 移除头像点击上传事件
         const userAvatar = document.querySelector('.user-avatar');
         if (userAvatar) {
-            userAvatar.addEventListener('click', (e) => {
-                e.preventDefault();
-                const input = document.createElement('input');
-                input.type = 'file';
-                input.accept = 'image/*';
-                
-                input.onchange = async (e) => {
-                    const file = e.target.files[0];
-                    if (file) {
-                        // 验证文件大小（5MB限制）
-                        if (file.size > 5 * 1024 * 1024) {
-                            alert('图片大小不能超过5MB');
-                            return;
-                        }
-
-                        // 验证文件类型
-                        if (!file.type.startsWith('image/')) {
-                            alert('请选择图片文件');
-                            return;
-                        }
-
-                        const result = await this.uploadAvatar(file);
-                        if (result.success) {
-                            alert(result.message);
-                        } else {
-                            alert(result.message);
-                        }
-                    }
-                };
-
-                input.click();
-            });
+            userAvatar.style.cursor = 'default';  // 移除手型光标
         }
     }
 };
