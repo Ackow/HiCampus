@@ -230,7 +230,9 @@ const AuthComponent = {
                         body: JSON.stringify(data)
                     });
 
+                    console.log('注册响应状态:', response.status);
                     const result = await response.json();
+                    console.log('注册响应数据:', result);
 
                     if (response.ok) {
                         // 注册成功后显示登录表单
