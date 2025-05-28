@@ -15,7 +15,31 @@ const ProfileComponent = {
     // hash 路由变化时的处理
     onHashChange() {
         if (window.location.hash === '#profile') {
-            this.renderProfileFromCache();
+            this.updateUserInfo();
+            setTimeout(() => {
+                this.renderProfileFromCache();
+            }, 100);
+        }
+    },
+
+    async updateUserInfo() {
+        try {
+            const response = await fetch('http://localhost:3000/api/user', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+
+            const result = await response.json();
+
+            if (response.ok)     {
+                localStorage.setItem('userInfo', JSON.stringify(result));
+            } else {
+                console.error('获取用户信息失败:', result.message);
+            }
+        } catch (error) {
+            console.error('获取用户信息出错:', error);
         }
     },
 
@@ -41,10 +65,7 @@ const ProfileComponent = {
                 window.location.href = `${basePath}src/pages/registerAndLogin.html`;
                 return;
             }
-            // 一开始就延迟100ms再渲染
-            setTimeout(() => {
-                this.updateUI(userInfo);
-            }, 100);
+            this.updateUI(userInfo);
         }
     },
 

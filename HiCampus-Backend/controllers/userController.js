@@ -23,7 +23,7 @@ exports.register = async (req, res) => {
             username,
             password: hashedPassword,
             nickname,
-            avatar: 'default-avatar.png',
+            avatar: 'default-avatar.jpg',
             age: 0,
             gender: 'male'
         });
@@ -135,7 +135,7 @@ exports.uploadAvatar = async (req, res) => {
         }
 
         // 删除旧头像（如果不是默认头像）
-        if (user.avatar !== 'default-avatar.png') {
+        if (user.avatar !== 'default-avatar.jpg') {
             const oldAvatarPath = path.join(__dirname, '../uploads/avatars', user.avatar);
             if (fs.existsSync(oldAvatarPath)) {
                 fs.unlinkSync(oldAvatarPath);
@@ -152,6 +152,48 @@ exports.uploadAvatar = async (req, res) => {
         });
     } catch (error) {
         console.error('头像上传错误:', error);
+        res.status(500).json({ message: '服务器错误' });
+    }
+};
+
+// 更新用户信息
+exports.updateUserInfo = async (req, res) => {
+    try {
+        const { nickname, age, gender, password } = req.body;
+        const user = await User.findById(req.user.userId);
+        
+        if (!user) {
+            return res.status(404).json({ message: '用户不存在' });
+        }
+
+        // 更新用户信息
+        if (nickname) user.nickname = nickname;
+        if (age) user.age = age;
+        if (gender) user.gender = gender;
+        
+        // 如果提供了新密码，则更新密码
+        if (password) {
+            const hashedPassword = await bcrypt.hash(password, 10);
+            user.password = hashedPassword;
+        }
+
+        await user.save();
+
+        // 返回更新后的用户信息
+        res.json({
+            message: '更新成功',
+            user: {
+                id: user._id,
+                uid: user.uid,
+                username: user.username,
+                nickname: user.nickname,
+                avatar: `http://localhost:3000/uploads/avatars/${user.avatar}`,
+                age: user.age,
+                gender: user.gender
+            }
+        });
+    } catch (error) {
+        console.error('更新用户信息错误:', error);
         res.status(500).json({ message: '服务器错误' });
     }
 }; 

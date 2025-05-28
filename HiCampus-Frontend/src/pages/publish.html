@@ -4,12 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HiCampus - 图文编辑</title>
-    <link rel="stylesheet" href="../styles/editPost.css">
+    <link rel="stylesheet" href="../styles/publish.css">
     <link rel="stylesheet" href="../styles/main.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header class="site-header" style="margin: 0;">
@@ -28,9 +24,6 @@
             </div>
 
             <div class="header-right-actions">
-                <button class="search-trigger-button" id="searchTriggerButton" aria-label="打开搜索框">
-                    <img src="assets/images/搜索.svg" alt="搜索图标" class="search-trigger-icon">
-                </button>
                 <!-- 未登录状态 -->
                 <div class="auth-buttons" id="authButtons">
                     <button class="auth-button">登录/注册</button>
@@ -38,12 +31,12 @@
                 <!-- 已登录状态 -->
                 <div class="user-profile-container" id="userProfile" style="display: none;">
                     <div class="user-profile-wrapper">
-                        <a href="/profile" class="user-profile-link">
+                        <a class="user-profile-link">
                             <img src="http://localhost:3000/uploads/avatars/default-avatar.png" alt="用户头像" class="user-avatar">
                             <span class="user-nickname">加载中...</span>
                         </a>
                         <div class="user-dropdown-menu">
-                            <a href="/profile" class="dropdown-item">
+                            <a href="../../public/index.html#profile" class="dropdown-item">
                                 <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                                     <circle cx="12" cy="7" r="4"/>
@@ -67,14 +60,15 @@
 
     <div class="main-content">
         <div class="card">
-            <h2 class="card-title">图文编辑 <span class="image-count">(1/9)</span></h2>
+            <h2 class="card-title">图文编辑 <span class="image-count">(0/9)</span></h2>
             <div class="image-upload-section">
-                <div class="upload-box">
-                    <i class="fas fa-plus upload-icon"></i>
+                <div class="upload-box" id="uploadBox">
+                    <img src="../../public/assets/images/添加.svg" alt="添加" class="upload-icon">
                     <span class="upload-text">添加</span>
+                    <input type="file" id="imageInput" accept="image/*" multiple style="display: none;">
                 </div>
-                <div class="uploaded-image-placeholder">
-                    <img src="https://via.placeholder.com/80x80" alt="Uploaded Image" class="uploaded-image">
+                <div id="imagePreviewContainer" class="image-preview-container">
+                    <!-- 图片预览将在这里动态添加 -->
                 </div>
             </div>
 
@@ -84,26 +78,26 @@
 
             <div class="options-row">
                 <div class="option-tag">
-                    <i class="fas fa-hashtag option-icon"></i>
+                    <img src="../../public/assets/images/话题.svg" alt="话题" class="option-icon">
                     <span>话题</span>
                 </div>
                 <div class="option-tag">
-                    <i class="fas fa-at option-icon"></i>
+                    <img src="../../public/assets/images/艾特.svg" alt="用户" class="option-icon">
                     <span>用户</span>
                 </div>
                 <div class="option-tag">
-                    <i class="fas fa-map-marker-alt option-icon"></i>
+                    <img src="../../public/assets/images/定位.svg" alt="地点" class="option-icon">
                     <span>地点</span>
                 </div>
             </div>
 
             <div class="settings-row">
                 <div class="setting-item">
-                    <i class="fas fa-lock setting-icon"></i>
+                    <img src="../../public/assets/images/锁定.svg" alt="可见范围" class="setting-icon">
                     <span>可见范围</span>
                 </div>
                 <div class="setting-item">
-                    <i class="fas fa-cog setting-icon"></i>
+                    <img src="../../public/assets/images/齿轮.svg" alt="高级设置" class="setting-icon">
                     <span>高级设置</span>
                 </div>
             </div>
@@ -113,5 +107,6 @@
             </div>
         </div>
     </div>
+    <script type="module" src="../../public/assets/js/main.js"></script>
 </body>
 </html>

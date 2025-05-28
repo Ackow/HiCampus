@@ -14,32 +14,10 @@ const EditProfileComponent = {
     // hash 路由变化时的处理
     onHashChange() {
         if (window.location.hash === '#edit-profile') {
-            this.updateUserInfo();
             setTimeout(() => {
                 this.loadUserInfo();
                 this.bindEvents();
             }, 100);
-        }
-    },
-
-    async updateUserInfo() {
-        try {
-            const response = await fetch('http://localhost:3000/api/user', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
-            });
-
-            const result = await response.json();
-
-            if (response.ok)     {
-                localStorage.setItem('userInfo', JSON.stringify(result));
-            } else {
-                console.error('获取用户信息失败:', result.message);
-            }
-        } catch (error) {
-            console.error('获取用户信息出错:', error);
         }
     },
 
@@ -84,12 +62,12 @@ const EditProfileComponent = {
             });
             const avatar = document.querySelector('.profile-edit-avatar');
             if (avatar) {
-                avatar.src = userInfo.avatar || 'http://localhost:3000/uploads/avatars/default-avatar.png';
+                avatar.src = userInfo.avatar || 'http://localhost:3000/uploads/avatars/default-avatar.jpg';
             }
         }
     },
 
-    handleAvatarUpload() {
+    async handleAvatarUpload() {
         console.log('上传头像');
 
         const input = document.createElement('input');
@@ -114,51 +92,66 @@ const EditProfileComponent = {
                     const formData = new FormData();
                     formData.append('avatar', file);
 
-                    const response = await fetch('http://localhost:3000/api/upload/avatar', {
+                    const response = await fetch('http://localhost:3000/api/users/avatar', {
                         method: 'POST',
-                        headers: {
-                            'Authorization': `Bearer ${localStorage.getItem('token')}`
-                        },
-                        body: formData
+                        body: formData,
+                        credentials: 'include'
                     });
 
-                    const result = await response.json();
-
-                    if (response.ok) {
-                        // 更新本地存储中的用户信息
-                        const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-                        userInfo.avatar = result.avatar;
-                        localStorage.setItem('userInfo', JSON.stringify(userInfo));
-
-                        // 更新头像显示
-                        const avatar = document.querySelector('.profile-edit-avatar');
-                        if (avatar) {
-                            avatar.src = result.avatar;
-                        }
-
-                        alert('头像上传成功');
-                    } else {
-                        alert(result.message || '头像上传失败');
+                    if (!response.ok) {
+                        throw new Error('上传失败');
                     }
+
+                    const data = await response.json();
+                    const avatarUrl = `http://localhost:3000/uploads/avatars/${data.filename}`;
+                    
+                    // 更新头像显示
+                    const avatarPreview = document.querySelector('.avatar-preview');
+                    if (avatarPreview) {
+                        avatarPreview.src = avatarUrl;
+                        avatarPreview.onerror = function() {
+                            this.onerror = null;
+                            this.src = 'http://localhost:3000/uploads/avatars/default-avatar.jpg';
+                        };
+                    }
+
+                    // 更新用户信息
+                    const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
+                    userInfo.avatar = avatarUrl;
+                    localStorage.setItem('userInfo', JSON.stringify(userInfo));
+
+                    showMessage('头像上传成功');
                 } catch (error) {
-                    console.error('头像上传错误:', error);
-                    alert('头像上传失败，请稍后重试');
+                    console.error('头像上传失败:', error);
+                    showMessage('头像上传失败，请重试', 'error');
                 }
             }
         };
         input.click();
     },
 
-    handleSaveProfile() {
-        const nickname = document.querySelector('input[type="text"]').value;
-        const age = document.querySelector('input[type="number"]').value;
+    async handleSaveProfile() {
+        const nickname = document.querySelector('.nickname').value;
+        const age = document.querySelector('.age').value;
         const password = document.querySelectorAll('input[type="password"]')[0].value;
         const confirmPassword = document.querySelectorAll('input[type="password"]')[1].value;
         const gender = document.querySelector('input[name="gender"]:checked')?.value;
 
+        // console.log(nickname,age,password,confirmPassword,gender);
+
         // 表单验证
         if (!nickname) {
             alert('请输入昵称');
+            return;
+        }
+
+        if (nickname.length > 6) {
+            alert('昵称长度不能超过6位');
+            return;
+        }
+
+        if (age.length > 2) {
+            alert('年龄必须在1-99岁之间');
             return;
         }
 
@@ -167,26 +160,63 @@ const EditProfileComponent = {
             return;
         }
 
-        // 构建更新数据
+        const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+
+        // 构建更新数据，只包含发生变化的字段
         const updateData = {
-            nickname,
-            age: parseInt(age) || null,
-            gender,
-            avatar: document.querySelector('.profile-avatar').src
+            id: userInfo.id
         };
 
+        // 检查每个字段是否有变化，有变化才添加到updateData中
+        if (nickname && nickname !== userInfo.nickname) {
+            updateData.nickname = nickname;
+        }
+        if (age && parseInt(age) !== userInfo.age) {
+            updateData.age = parseInt(age);
+        }
+        if (gender && gender !== userInfo.gender) {
+            updateData.gender = gender;
+        }
         if (password) {
             updateData.password = password;
         }
 
-        // TODO: 调用后端 API 更新用户信息
-        // 这里先模拟更新成功
-        const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
-        const updatedUserInfo = { ...userInfo, ...updateData };
-        localStorage.setItem('userInfo', JSON.stringify(updatedUserInfo));
-        
-        alert('保存成功');
-        history.back();
+        // 如果没有需要更新的字段，提示用户
+        if (Object.keys(updateData).length <= 1) { // 只有id字段
+            alert('没有检测到任何修改');
+            return;
+        }
+
+        console.log('更新的数据:', updateData);
+
+        // 调用后端 API 更新用户信息
+        try {
+            const response = await fetch('http://localhost:3000/api/user/update', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify(updateData)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                // 更新本地存储中的用户信息
+                const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+                const updatedUserInfo = { ...userInfo, ...result };
+                localStorage.setItem('userInfo', JSON.stringify(updatedUserInfo));
+                
+                alert('保存成功');
+                history.back();
+            } else {
+                alert(result.message || '更新失败，请稍后重试');
+            }
+        } catch (error) {
+            console.error('更新用户信息出错:', error);
+            alert('更新失败，请检查网络连接后重试');
+        }
     },
 
     handleCancelEdit() {

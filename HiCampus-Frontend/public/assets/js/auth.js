@@ -63,7 +63,7 @@ const AuthComponent = {
                     // 更新头像
                     if (userAvatar) {
                         // 使用服务器返回的完整URL，如果没有则使用默认头像
-                        userAvatar.src = userInfo.avatar || 'http://localhost:3000/uploads/avatars/default-avatar.png';
+                        userAvatar.src = userInfo.avatar || 'http://localhost:3000/uploads/avatars/default-avatar.jpg';
                         userAvatar.alt = `${userInfo.nickname || '用户'}的头像`;
                     }
                     
@@ -283,6 +283,17 @@ const AuthComponent = {
             userAvatar.style.cursor = 'default';  // 移除手型光标
         }
     }
+};
+
+const updateUserAvatar = (avatarUrl) => {
+    const avatarElements = document.querySelectorAll('.user-avatar, .user-avatar-small');
+    avatarElements.forEach(avatar => {
+        avatar.src = avatarUrl || 'http://localhost:3000/uploads/avatars/default-avatar.jpg';
+        avatar.onerror = function() {
+            this.onerror = null;
+            this.src = 'http://localhost:3000/uploads/avatars/default-avatar.jpg';
+        };
+    });
 };
 
 // 导出组件

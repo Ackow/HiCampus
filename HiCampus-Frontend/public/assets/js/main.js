@@ -4,7 +4,8 @@ class ComponentManager {
         this.components = new Map();
         this.pageComponents = {
             'registerAndLogin': ['auth'],
-            'index': ['auth', 'search', 'profile','editProfile'],
+            'index': ['auth', 'search', 'profile','editProfile', 'articleList'],
+            'publish': ['auth', 'publish'],
         };
     }
 
@@ -49,6 +50,9 @@ class ComponentManager {
         if (path.includes('registerAndLogin.html')) {
             return 'registerAndLogin';
         }
+        else if (path.includes('publish.html')) {
+            return 'publish';
+        }
         else if (path.includes('index.html') || path === '/' || path === '/index.html') {
             return 'index';
         }
@@ -64,12 +68,17 @@ import SearchComponent from './search.js';
 import AuthComponent from './auth.js';
 import ProfileComponent from './profile.js';
 import EditProfileComponent from './edit-profile.js';
+import PublishComponent from './publish.js';
+import ArticleListComponent from './articleList.js';
 
 // 注册组件
 componentManager.register('search', SearchComponent);
 componentManager.register('auth', AuthComponent);
 componentManager.register('profile', ProfileComponent);
 componentManager.register('editProfile', EditProfileComponent);
+componentManager.register('publish', PublishComponent);
+componentManager.register('articleList', ArticleListComponent);
+
 
 // 当 DOM 加载完成后初始化所有组件
 document.addEventListener('DOMContentLoaded', () => {
